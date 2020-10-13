@@ -124,6 +124,35 @@
         <article class="post">
             
                 <h4 class="post-cat">
+                    <a href="/categories/ranklist/">
+                        ranklist
+                    </a>
+                </h4>
+                
+                    <h1 class="post-title">
+                        <a href="/game-ranklist/">
+                            游戏排行榜算法设计实现
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            September 12, 2020
+                        </li>
+                        <li>
+                            mikzzz
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <p><font size=5 color=#0099ff ace="微软雅黑">需求背景：</font><br>查看前top N的排名用户<br>查看自己的排名<br>用户积分变更后，排名及时更新<br><font size=5 color=#0099ff ace="微软雅黑">方案一：MySQL来实现</font><br>利用MySQL来实现，存放一张用户积分表user_score<br>游戏排行榜算法设计实现比较<br>取前top N，自己的排名都可以通过简单的sql语句搞定。<br>算法简单，利用sql的功能，不需要其他复杂逻辑，对于数据量比较少、性能要求不高，可以使用。但是对于海量数据，性能是无法接受的。<br><font size=5 color=#0099ff ace="微软雅黑">方案二：skiplist的实现</font><br>用这个实现起来比较简单；用hashmap来存储具体的对象；用skiplist用来排序。也可以简单的用一个map和set来实现。Map内面存具体对象，set用来排序。<br>关于skip list这里简单介绍下：skip list是链表的一种特殊形式，对链表的一种优化；保证INSERT和REMOVE操作是O(logn)，而通用链表的复杂度为O(n);<br>优点：实现较简单，效率基本上O(log(N))<br>缺点：当达到亿级别时的数据时，性能会急剧下降<br><font size=5 color=#0099ff ace="微软雅黑">方案三：基于redis的 sort set的实现</font><br>redis的zset用来做排行榜的、好友列表, 去重, 历史记录等业务需求。接口使用非常简单。接口非常丰富，基本上需要的实现都能满足，说明如下：<br>ZAdd/ZRem是O(log(N))，ZRangeByScore/ZRemRangeByScore是O(log(N)+M)，N是Set大小，M是结果/操作元素的个数。<br>ZSET的实现用到了两个数据结构：hash table 和 skip list(跳跃表)，其中hash table是具体使用redis中的dict来实现的，主要是为了保证查询效率为O(1) ，而skip list(跳跃表)主要是保证元素有序并能够保证INSERT和REMOVE操作是O(logn)的复杂度。<br>优点：基于redis开发，速度快；使用redis相关特性<br>缺点：当达到亿级别时的数据时，性能会急剧下降</p>
+                            <a href="/game-ranklist/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+        <article class="post">
+            
+                <h4 class="post-cat">
                     <a href="/categories/mysql/">
                         mysql
                     </a>
@@ -286,14 +315,14 @@
                 
     <h1>Categories</h1>
 
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/data-structure/">data structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/epoll/">epoll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libevent/">libevent</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li></ul>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/data-structure/">data structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/epoll/">epoll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libevent/">libevent</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ranklist/">ranklist</a></li></ul>
 
             </section>
             <section class="aside-section">
                 
     <h1>Archives</h1>
 
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/">2009</a></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/">2009</a></li></ul>
 
 
             </section>
@@ -301,7 +330,7 @@
                 
     <h1>Tags</h1>
 
-    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%93/" rel="tag">网络库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ranklist/" rel="tag">ranklist</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%93/" rel="tag">网络库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
 
             </section>
         </aside>
