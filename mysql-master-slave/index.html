@@ -118,72 +118,115 @@
     </div>
 </header>
         <main class="main">
-            
-<section class="posts">
+            <article class="post">
     
-        <article class="post">
-            
-                <h4 class="post-cat">
-                    <a href="/categories/data-structure/">
-                        data structure
-                    </a>
-                </h4>
-                
-                    <h1 class="post-title">
-                        <a href="/heaps-stacks/">
-                            堆和栈的区别
-                        </a>
-                    </h1>
+    
+    <h4 class="post-cat">
+        <a href="/categories/mysql/">
+            mysql
+        </a>
+    </h4>
+    
+    
+    <h2 class="post-title">
+        mysql master-slave集群
+    </h2>
+    <ul class="post-date">
+        <li>
+            2019-09-12
+        </li>
+        <li>
+            mikzzz
+        </li>
+    </ul>
+    <div class="post-content">
+        <p><font size=5 color=#0099ff ace="微软雅黑">MySQL的集群主要有两个成熟方案：分布式集群和主从集群</font></p>
+<p>mysql 主从复制模式主要为master负责接收用户的请求,DDL,DML,DCL等操作，slave主要负责同步master的二进制日志，以便备份数据。在一此数据库访问量比较大的场景，master-slave模式还可以结合mysql-proxy做读写分离，mysql-proxy负责将用户的写请求转发到master，将用户的读请求转发到slave，以分担数据库的压力。甚至更健壮的系统，一个master对应多个slave,做成高可用HA集群，当master宕机的时候，多个slave会协商出一个slave重新成为master,以达到服务的持续性。</p>
+<p>在mysql master-slave架构中，slave会启动两个主要的线程，一个是io thread,另一个是sql thread。大家都知道，mysql的replication主要是通过slave同步master中的二进制日志，然后将二进制日志先储存在slave中的中继日志中，<a id="more"></a>然后再在本地通过读取中继日志执行sql操作。io thread主要完成的工作就是第一步，而sql thread主要工作是从中继日志中读取日志，然后进行本地操作。而对于master而言，也会启动一条dump线程，该线程主要的作用是响应slave的io thread请求，将二进制日志发送到slave。</p>
+<p><font size=5 color=#0099ff ace="微软雅黑">优点</font><br>•    1、可以缓解读的压力。<br>•    2、成本低，布署快速、方便<br>•    3、读写分离<br>•    4、还能通过及时增加从库来减少读库压力<br>•    5、主库单点故障<br>•    6、数据一致性问题（同步延迟造成）<br>•    7、一但主机宕机就不可以进行写操作</p>
+<p>下面来一步一步搭建mysql的master-slave架构。</p>
+<p>1、环境准备</p>
+<p>os:centos 6.4</p>
+<p>mysql服务器:5.5.28(2台)</p>
+<p>ip分配：master:192.168.1.101</p>
+<p>slave:192.168.1.108</p>
+<p>mysql通过二进制安装包：mysql-5.5.28-linux2.6-x86_64.tar.gz</p>
+<p>2、mysql安装</p>
+<p>解压到/usr/local目录</p>
+<p>tar xf mysql-5.5.28-linux2.6-x86_64.tar.gz -C /usr/local</p>
+<p>添加软链</p>
+<p>ln -sv /usr/local/mysql-5.5.28-linux2.6-x86_64 /usr/local/mysql</p>
+<p>添加mysql用户，用户组</p>
+<p>groupadd -r mysql</p>
+<p>useradd -r -g mysql -s /sbin/nologin mysql</p>
+<p>添加mysql数据目录</p>
+<p>mkdir -pv /data/mysql</p>
+<p>chown -R mysql:mysql /data/mysql</p>
+<p>初始化mysql数据库</p>
+<p>cd /usr/local/mysql</p>
+<p>chown -R root.mysql ./*</p>
+<p>scripts/mysql_install_db –user=mysql –datadir=/data/mysql</p>
+<p>复制mysql配置文件，启动脚本</p>
+<p>cp support-files/my-large.cnf /etc/my.cnf</p>
+<p>cp support-files/mysql.server /etc/init.d/mysqld</p>
+<p>chkconfig –add msyqld</p>
+<p>3、master配置</p>
+<p>vim /etc/my.cnf</p>
+<p>在[mysqld]中添加：</p>
+<p>datadir=/data/mysql</p>
+<p>innodb_file_per_table=1 # 对innodb来说每表一个表空间文件</p>
+<p>log-bin=master-bin #开启二进制日志功能</p>
+<p>log-bin-index=master-bin.index #二进制日志文件的索引文件</p>
+<p>#server_id可暂时不用改，只要不和slave中的server_id一样即可</p>
+<p>保存退出。</p>
+<p>4、初始化master</p>
+<p>用mysql进入交互命令行界面</p>
+<p>授权relication slave复制权限</p>
+<p>mysql&gt; grant relication slave on <em>.</em> to ‘repluser’@’192.168.1.%’ identified by ‘replpass’;</p>
+<p>mysql&gt; flush privileges; #读取授权表</p>
+<p>5、安装slave</p>
+<p>按上述相同方式安装好slave。</p>
+<p>6、slave配置</p>
+<p>vim /etc/my.cnf</p>
+<p>在[mysqld]中添加：</p>
+<p>datadir=/data/mysql</p>
+<p>innodb_file_per_table=1 # 对innodb来说每表一个表空间文件</p>
+<p>relay-bin=relay-bin #开启中继日志功能</p>
+<p>relay-bin-index=relay-bin.index #中继日志文件的索引文件</p>
+<p>read_only=1 #设置slave为只读模式</p>
+<p>server_id=10#注意，slave中的server_id不能和master的server_id相同。</p>
+<p>保存退出。</p>
+<p>7、初始化slave</p>
+<p>用mysql进入交互命令行界面</p>
+<p>mysql&gt; change master to</p>
+<p>master_host=’192.168.1.101’,</p>
+<p>master_user=’repluser’,</p>
+<p>master_password=’replpass’,</p>
+<p>master_log_file=’master-bin.000002’,</p>
+<p>master_log_pos=107</p>
+<p>#其中master_log_file和master_log_pos是在master中通过show master status命令查看到的。</p>
+<p>#所以务必要先在master中查看对应的值后，再执行此命令。</p>
+<p>#master_log_file：slave要同步的二进制文件</p>
+<p>#master_log_pos：同步的起始位置</p>
+<p>8、启动slave</p>
+<p>mysql&gt; start slave</p>
+<p>#此命令会同步启动io_thread和sql_thread,也可以独启动它们。</p>
+<p>#mysql&gt; start slave io_thread</p>
+<p>#mysql&gt; start slave sql_thread</p>
+<p>至此，mysql的master-slave模式基本搭建完成了。</p>
+<p>在slave中可查看slave的状态信息</p>
+<p>mysql&gt; show slave status \G;</p>
+<p>9、测试</p>
+<p>在master中创建一个数据库</p>
+<p>mysql&gt; create database leedb;</p>
+<p>在slave中查看数据库</p>
+<p>mysql&gt; show databases;</p>
+<p>可以看到刚才在master中的leedb自动同步到slave中了。以后在master中所有可能引起数据库变更</p>
+<p>的动作都会自动同步到slave中了。当然，mysql可以对数据库或对数据表进行过滤同步，可以有选</p>
+<p>择性地同步某个数据库或者某个数据库的某张表，这个留待后续再讨论。</p>
 
-                    <ul class="post-date">
-                        <li>
-                            July 13, 2009
-                        </li>
-                        <li>
-                            mikzzz
-                        </li>
-                    </ul>
-                    
-                    <div class="post-content ">
-                        <p><font size=5 color=#0099ff ace="微软雅黑">堆和栈的区别</font><br>从管理方式上：栈是由编译器自动管理，无需我们手动控制；<br>对于堆，开辟和释放工作由程序员控制，所以有内存泄漏等情况的发生。<br>从申请大小上：栈是有高地址向低地址扩展的，是一块连续的内存区域，所以栈的栈顶地址或者大小 是一开始就分配好的。在使用过程中，比如递归调用层数过多，那么就有可能造成栈溢出，所以栈能获得的空间比较少；<br>堆是向高地址扩展的，是链表组织的方式，所以有可能是不连续的，他的大小只受限于有效的虚拟内存大小，所以堆能开辟的空间较大。<br>从碎片问题上：栈是没有碎片的情况，因为他有严格的出栈入栈，不会存在一个内存块从栈的中间位置弹出；<br>堆有碎片的情况，频繁的调用new/delete分配释放内存，必然会造成内存碎片。</p>
-                            <a href="/heaps-stacks/" class="more-link">Continue reading</a>
-                    </div>
-        </article>
-        
-        <article class="post">
-            
-                <h4 class="post-cat">
-                    <a href="/categories/data-structure/">
-                        data structure
-                    </a>
-                </h4>
-                
-                    <h1 class="post-title">
-                        <a href="/binary-search-tree/">
-                            二叉搜索树
-                        </a>
-                    </h1>
-
-                    <ul class="post-date">
-                        <li>
-                            July 12, 2009
-                        </li>
-                        <li>
-                            mikzzz
-                        </li>
-                    </ul>
-                    
-                    <div class="post-content ">
-                        <p><font size=5 color=#0099ff ace="微软雅黑">一、什么是二叉搜索树</font></p>
-<p>二叉搜索树（binary search tree, BST）也叫排序的二叉树，根节点比左边子树的所有节点都大，比右边子树上的所有节点都小，如下图就是一个二叉搜索树:<br>要实现一个二叉搜索树，我们需要实现节点的插入和删除，要实现节点的查找（搜索），要实现前序遍历、中序遍历和后序遍历，要实现最大节点和最小节点的查找。</p>
-<p><font size=5 color=#0099ff ace="微软雅黑">二、定义基本数据结构</font></p>
-<p>常规地，我们定义节点的类型，每个节点包含它的值以及左右节点。因为目前 Go 泛型还没有发布，所以这里我们实现一个元素为 int 类型的具体的二叉搜索树，等泛型实现后可以改成抽象的二叉搜索树。</p>
-                            <a href="/binary-search-tree/" class="more-link">Continue reading</a>
-                    </div>
-        </article>
-        
-</section>
-
+    </div>
+</article>
         </main>
         <aside class="aside">
             <div class="close"></div>
