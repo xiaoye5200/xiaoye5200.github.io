@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="keywords" content="hexo, autumn" />
+    <title>
+        E=MC²
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/favicon.ico" />
+     
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+
+    <script>
+        infiniteScroll()
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const [
+                mainTitle,
+                mobileMenu,
+                mobileMainTitle,
+                mobileMenuBtn,
+                ipadMenuBtn,
+                aside,
+                closeBtn,
+            ] = getEle(
+                '#main-title',
+                '.mobile-menu',
+                '.mobile-menu h3',
+                '.mobile-menu button',
+                '.ipad-menu',
+                'aside',
+                'aside .close',
+            )
+            const io = new IntersectionObserver(entries => {
+                if (entries[0].intersectionRatio <= 0) {
+                    mobileMainTitle.classList.remove('invisibile')
+                } else {
+                    mobileMainTitle.classList.add('invisibile')
+                }
+            })
+            io.observe(mainTitle)
+
+            clickToggleAside(mobileMenuBtn)
+            clickToggleAside(ipadMenuBtn)
+            clickToggleAside(closeBtn, false)
+
+            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
+            if (isMenuVisible) document.body.style.background = 'none'
+
+            function getEle(...args) {
+                return args.map(arg => document.querySelector(arg))
+            }
+
+            function clickToggleAside(btn, show = true) {
+                btn.addEventListener('click', function () {
+                    if (show) {
+                        aside.style.display = 'block'
+                    } else {
+                        aside.style.display = 'none'
+                    }
+                })
+            }
+        })
+    </script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism-duotone-dark.css" type="text/css"></head>
+
+<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+    <div class="container">
+        <header class="header">
+    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <h3 class="invisibile">
+            <a href="/" class="logo">
+                E=MC²
+            </a>
+        </h3>
+        <button class="menu">menu</button>
+    </nav>
+
+    <button class="ipad-menu menu">menu</button>
+
+    <h1 class="title" id="main-title">
+        <a href="/" class="logo">
+            E=MC²
+        </a>
+    </h1>
+    <h2 class="desc">
+        Coding changes the world.
+    </h2>
+
+    <div class="links">
+        <ul>
+            
+            <li>
+                <a href="mailto:948694243@qq.com">
+                    Email
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com">
+                    LinkedIn
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</header>
+        <main class="main">
+            <article class="post">
+    
+    
+    <h4 class="post-cat">
+        <a href="/categories/class/">
+            class
+        </a>
+    </h4>
+    
+    
+    <h2 class="post-title">
+        实现一个不能被继承的类
+    </h2>
+    <ul class="post-date">
+        <li>
+            2009-07-12
+        </li>
+        <li>
+            mikzzz
+        </li>
+    </ul>
+    <div class="post-content">
+        <p><font size=5 color=#0099ff ace="微软雅黑">1、方法一 将其构造函数声明为私有的</font></p>
+<p>最直观的解决方法就是将其构造函数声明为私有的，这样就可以阻止子类构造对象了。但是这样的话，就无法构造本身的对象了，就无法利用了。<br>既然这样，我们又可以想定义一个静态方法来构造类和释放类。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">A</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+       <span class="token keyword">static</span> A<span class="token operator">*</span> <span class="token function">Construct</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
+       <span class="token punctuation">{</span>
+           A <span class="token operator">*</span>pa <span class="token operator">=</span> <span class="token keyword">new</span> A<span class="token punctuation">;</span>
+           pa<span class="token operator">-</span><span class="token operator">></span>num <span class="token operator">=</span> n<span class="token punctuation">;</span>
+           cout<span class="token operator">&lt;&lt;</span><span class="token string">"num is:"</span><span class="token operator">&lt;&lt;</span>pa<span class="token operator">-</span><span class="token operator">></span>num<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+           <span class="token keyword">return</span> pa<span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">Destruct</span><span class="token punctuation">(</span>A <span class="token operator">*</span> pIntance<span class="token punctuation">)</span>
+       <span class="token punctuation">{</span>
+           <span class="token keyword">delete</span> pIntance<span class="token punctuation">;</span>
+           pIntance <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+    
+    <span class="token keyword">private</span><span class="token operator">:</span>
+       <span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+       <span class="token operator">~</span><span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span><span class="token operator">:</span>
+       <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    A <span class="token operator">*</span>f <span class="token operator">=</span> A<span class="token operator">::</span><span class="token function">Construct</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout<span class="token operator">&lt;&lt;</span>f<span class="token operator">-</span><span class="token operator">></span>num<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+    A<span class="token operator">::</span><span class="token function">Destruct</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p><font size=5 color=#0099ff ace="微软雅黑">2、方法二 利用友元不能被继承的特性，可以实现这样的类。</font></p>
+<a id="more"></a>
+<p>设计一个模板辅助类 Base，将构造函数声明为私有的；再设计一个不能继承的类 FinalClass，将 FinalClass 作为 Base 的友元类。FinalClass 虚继承 Base。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> T<span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">Base</span><span class="token punctuation">{</span>
+    <span class="token keyword">friend</span> T<span class="token punctuation">;</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    <span class="token function">Base</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"base"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">~</span><span class="token function">Base</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">FinalClass</span> <span class="token operator">:</span> <span class="token keyword">virtual</span> <span class="token keyword">public</span> Base<span class="token operator">&lt;</span>FinalClass<span class="token operator">></span><span class="token punctuation">{</span>  
+ <span class="token comment" spellcheck="true">//一定注意 必须是虚继承</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">FinalClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"FinalClass()"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token operator">:</span> <span class="token keyword">public</span> FinalClass <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">C</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>     <span class="token comment" spellcheck="true">//继承时报错，无法通过编译</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    FinalClass <span class="token class-name">b</span><span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">//B类无法被继承</span>
+    <span class="token comment" spellcheck="true">//C c;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>类 Base 的构造函数和析构函数因为是私有的，只有 Base 类的友元可以访问，FinalClass 类在继承时将模板的参数设置为了 FinalClass 类，所以构造 FinalClass 类对象时们可以直接访问父类（Base）的构造函数。</p>
+<p>为什么必须是虚继承呢？</p>
+<p>虚继承的功能是：当出现了菱形继承体系的时候，使用虚继承可以防止二义性，即子孙类不会继承多个原始祖先类。</p>
+<p>那么虚继承如何解决这种二义性的呢？从具有虚基类的类继承的类在初始化时进行了特殊处理，在虚派生中，由最低层次的派生类的构造函数初始化虚基类。</p>
+<p>结合上面的代码来解释：C 在调用构造函数时，不会先调用 FinalClass 的构造函数，而是直接调用 Base 的构造函数，C 不是 Base 的友元类，所以无法访问。这样的话 C 就不能继承 FinalClass。</p>
+<p>注 C++11 的已经加入了 final 关键字，直接在类后面加上 final 关键字，就可以防止该类被继承。</p>
+
+    </div>
+</article>
+        </main>
+        <aside class="aside">
+            <div class="close"></div>
+            <section class="aside-section">
+                
+    <h1>Categories</h1>
+
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/class/">class</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-structure/">data structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/epoll/">epoll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libevent/">libevent</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ranklist/">ranklist</a></li></ul>
+
+            </section>
+            <section class="aside-section">
+                
+    <h1>Archives</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/">2009</a></li></ul>
+
+
+            </section>
+            <section class="aside-section tag">
+                
+    <h1>Tags</h1>
+
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ranklist/" rel="tag">ranklist</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%93/" rel="tag">网络库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
+
+            </section>
+        </aside>
+    </div>
+</body>
+
+</html>
