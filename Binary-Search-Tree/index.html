@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <meta name="keywords" content="hexo, autumn" />
     <title>
@@ -74,10 +74,10 @@
             }
         })
     </script>
-<meta name="generator" content="Hexo 5.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-duotone-dark.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism-duotone-dark.css" type="text/css"></head>
 
 <body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container">
+    <div class="container">
         <header class="header">
     <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
         <h3 class="invisibile">
@@ -122,8 +122,8 @@
     
     
     <h4 class="post-cat">
-        <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-            数据结构
+        <a href="/categories/data-structure/">
+            data structure
         </a>
     </h4>
     
@@ -145,27 +145,26 @@
 <p><font size=5 color=#0099ff ace="微软雅黑">二、定义基本数据结构</font></p>
 <p>常规地，我们定义节点的类型，每个节点包含它的值以及左右节点。因为目前 Go 泛型还没有发布，所以这里我们实现一个元素为 int 类型的具体的二叉搜索树，等泛型实现后可以改成抽象的二叉搜索树。</p>
 <a id="more"></a>
-
-<p>树只要包含根节点可以了。<br><code><br>public static void main(String[] args)&#123;<br>    System.out.println("Hello");<br>&#125;<br></code></p>
-<pre><code>type Node struct 
-\&#123;
-&#123;
-    value int   // 因为目前Go的泛型还没有发布，所以我们这里以一个int具体类型为例
-    left  *Node // 左子节点
-    right *Node // 右子节点
-&#125;</code></pre>
-<p>// Node 定义节点</p>
+<p>树只要包含根节点可以了。<br>// Node 定义节点</p>
 <pre class=" language-cpp"><code class="language-cpp">type Node <span class="token keyword">struct</span> 
-\<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    value <span class="token keyword">int</span>   <span class="token comment" spellcheck="true">// 因为目前Go的泛型还没有发布，所以我们这里以一个int具体类型为例</span>
-    left  <span class="token operator">*</span>Node <span class="token comment" spellcheck="true">// 左子节点</span>
-    right <span class="token operator">*</span>Node <span class="token comment" spellcheck="true">// 右子节点</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span></code></pre>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span></code></pre>
+<span class="token punctuation">{</span>
+	value <span class="token keyword">int</span>   <span class="token comment" spellcheck="true">// 因为目前Go的泛型还没有发布，所以我们这里以一个int具体类型为例</span>
+	left  <span class="token operator">*</span>Node <span class="token comment" spellcheck="true">// 左子节点</span>
+	right <span class="token operator">*</span>Node <span class="token comment" spellcheck="true">// 右子节点</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token punctuation">}</span></code></pre>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// Node 定义节点</span>
+type Node <span class="token keyword">struct</span>
+<span class="token punctuation">{</span>
+	value <span class="token keyword">int</span>   <span class="token comment" spellcheck="true">// 因为目前Go的泛型还没有发布，所以我们这里以一个int具体类型为例</span>
+	left  <span class="token operator">*</span>Node <span class="token comment" spellcheck="true">// 左子节点</span>
+	right <span class="token operator">*</span>Node <span class="token comment" spellcheck="true">// 右子节点</span>
+<span class="token punctuation">}</span> 
+
+<span class="token comment" spellcheck="true">// BST 是一个节点的值为int类型的二叉搜索树</span>
+type BST <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	root <span class="token operator">*</span>Node
+<span class="token punctuation">}</span></code></pre>
 <p>// BST 是一个节点的值为int类型的二叉搜索树<br>type BST struct {<br>    root *Node<br>}</p>
 
     </div>
@@ -177,7 +176,7 @@
                 
     <h1>Categories</h1>
 
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li></ul>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/data-structure/">data structure</a></li></ul>
 
             </section>
             <section class="aside-section">
@@ -192,11 +191,11 @@
                 
     <h1>Tags</h1>
 
-    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%88%AB/" rel="tag">区别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
 
             </section>
         </aside>
-    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div>
 </body>
 
 </html>
