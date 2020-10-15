@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="keywords" content="hexo, autumn" />
+    <title>
+        E=MC²
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/favicon.ico" />
+     
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+
+    <script>
+        infiniteScroll()
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const [
+                mainTitle,
+                mobileMenu,
+                mobileMainTitle,
+                mobileMenuBtn,
+                ipadMenuBtn,
+                aside,
+                closeBtn,
+            ] = getEle(
+                '#main-title',
+                '.mobile-menu',
+                '.mobile-menu h3',
+                '.mobile-menu button',
+                '.ipad-menu',
+                'aside',
+                'aside .close',
+            )
+            const io = new IntersectionObserver(entries => {
+                if (entries[0].intersectionRatio <= 0) {
+                    mobileMainTitle.classList.remove('invisibile')
+                } else {
+                    mobileMainTitle.classList.add('invisibile')
+                }
+            })
+            io.observe(mainTitle)
+
+            clickToggleAside(mobileMenuBtn)
+            clickToggleAside(ipadMenuBtn)
+            clickToggleAside(closeBtn, false)
+
+            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
+            if (isMenuVisible) document.body.style.background = 'none'
+
+            function getEle(...args) {
+                return args.map(arg => document.querySelector(arg))
+            }
+
+            function clickToggleAside(btn, show = true) {
+                btn.addEventListener('click', function () {
+                    if (show) {
+                        aside.style.display = 'block'
+                    } else {
+                        aside.style.display = 'none'
+                    }
+                })
+            }
+        })
+    </script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism-duotone-dark.css" type="text/css"></head>
+
+<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+    <div class="container">
+        <header class="header">
+    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <h3 class="invisibile">
+            <a href="/" class="logo">
+                E=MC²
+            </a>
+        </h3>
+        <button class="menu">menu</button>
+    </nav>
+
+    <button class="ipad-menu menu">menu</button>
+
+    <h1 class="title" id="main-title">
+        <a href="/" class="logo">
+            E=MC²
+        </a>
+    </h1>
+    <h2 class="desc">
+        Coding changes the world.
+    </h2>
+
+    <div class="links">
+        <ul>
+            
+            <li>
+                <a href="mailto:948694243@qq.com">
+                    Email
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com">
+                    LinkedIn
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</header>
+        <main class="main">
+            <article class="post">
+    
+    
+    <h4 class="post-cat">
+        <a href="/categories/Socket/">
+            Socket
+        </a>
+    </h4>
+    
+    
+    <h2 class="post-title">
+        Socket 选项
+    </h2>
+    <ul class="post-date">
+        <li>
+            2012-12-25
+        </li>
+        <li>
+            mikzzz
+        </li>
+    </ul>
+    <div class="post-content">
+        <p><font size=5 color=#0099ff ace="微软雅黑">socket 选项</font><br>1、SO_REUSEADDR</p>
+<p>一般来说，一个端口释放后会等待两分钟之后才能再被使用，SO_REUSEADDR 是让端口释放后立即就可以被再次使用。</p>
+<p>SO_REUSEADDR 用于对 TCP 套接字处于 TIME_WAIT 状态下的 socket，才可以重复绑定使用。</p>
+<p>server 程序总是应该在调用 bind() 之前设置 SO_REUSEADDR 套接字选项 TCP，先调用 close() 的一方会进入 TIME_WAIT 状态。</p>
+<p>SO_REUSEADDR 提供如下四个功能：</p>
+<p>允许启动一个监听服务器并捆绑其众所周知端口，即使以前建立的将此端口用做他们的本地端口的连接仍存在。这通常是重启监听服务器时出现，若不设置此选项，则 bind 时将出错。<a id="more"></a><br>允许在同一端口上启动同一服务器的多个实例，只要每个实例捆绑一个不同的本地 IP 地址即可。对于 TCP，我们根本不可能启动捆绑相同 IP 地址和相同端口号的多个服务器。<br>允许单个进程捆绑同一端口到多个套接口上，只要每个捆绑指定不同的本地 IP 地址即可，这一般不用于 TCP 服务器。<br>SO_REUSEADDR 允许完全重复的捆绑：</p>
+<p>当一个 IP 地址和端口绑定到某个套接口上时，还允许此 IP 地址和端口捆绑到另一个套接口上。一般来说，这个特性仅在支持多播的系统上才有，而且只对 UDP 套接口而言（TCP 不支持多播）。<br>SO_REUSEPORT 选项有如下语义：</p>
+<p>此选项允许完全重复捆绑，但仅在想捆绑相同 IP 地址和端口的套接口都指定了此套接口选项才行。</p>
+<p>如果被捆绑的 IP 地址是一个多播地址，则 SO_REUSEADDR 和 SO_REUSEPORT 等效。</p>
+<p>使用这两个套接口选项的建议：</p>
+<p>在所有 TCP 服务器中，在调用 bind 之前设置 SO_REUSEADDR 套接口选项；<br>当编写一个同一时刻在同一主机上可运行多次的多播应用程序时，设置 SO_REUSEADDR 选项，并将本组的多播地址作为本地 IP 地址捆绑。<br>2、SO_REUSEPORT</p>
+<p>目前常见的网络编程模型就是多进程或多线程，根据accpet的位置，分为如下场景2种场景</p>
+<p>单进程或线程创建 socket，并进行 listen 和 accept，接收到连接后创建进程和线程处理连接<br>单进程或线程创建 socket，并进行 listen，预先创建好多个工作进程或线程 accept() 在同一个服务器套接字<br>这两种模型解充分发挥了多核 CPU 的优势，虽然可以做到线程和 CPU 核绑定，但都会存在：</p>
+<p>单一 listener 工作进程或线程在高速的连接接入处理时会成为瓶颈<br>多个线程之间竞争获取服务套接字<br>缓存行跳跃<br>很难做到 CPU 之间的负载均衡<br>随着核数的扩展，性能并没有随着提升<br>SO_REUSEPORT 支持多个进程或者线程绑定到同一端口，提高服务器程序的性能，解决的问题：</p>
+<p>允许多个套接字 bind()/listen() 同一个 TCP/UDP 端口<br>每一个线程拥有自己的服务器套接字<br>在服务器套接字上没有了锁的竞争<br>内核层面实现负载均衡<br>安全层面，监听同一个端口的套接字只能位于同一个用户下面<br>其核心的实现主要有三点：</p>
+<p>扩展 socket option，增加 SO_REUSEPORT 选项，用来设置 reuseport<br>修改 bind 系统调用实现，以便支持可以绑定到相同的 IP 和端口<br>修改处理新建连接的实现，查找 listener 的时候，能够支持在监听相同 IP 和端口的多个 sock 之间均衡选择<br>有了 SO_RESUEPORT 后，每个进程可以自己创建 socket、bind、listen、accept 相同的地址和端口，各自是独立平等的<br>让多进程监听同一个端口，各个进程中 accept socket fd 不一样，有新连接建立时，内核只会唤醒一个进程来 accept，并且保证唤醒的均衡性</p>
+
+    </div>
+</article>
+        </main>
+        <aside class="aside">
+            <div class="close"></div>
+            <section class="aside-section">
+                
+    <h1>Categories</h1>
+
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/GameServer/">GameServer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/GatewayServer/">GatewayServer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-11/">c++11</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/class/">class</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-structure/">data structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/entities/">entities</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/epoll/">epoll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libevent/">libevent</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ranklist/">ranklist</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/smart-pointer/">smart pointer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/sort/">sort</a></li></ul>
+
+            </section>
+            <section class="aside-section">
+                
+    <h1>Archives</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/">2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/">2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/">2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/">2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/">2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/">2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/">2009</a></li></ul>
+
+
+            </section>
+            <section class="aside-section tag">
+                
+    <h1>Tags</h1>
+
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GameServer/" rel="tag">GameServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GatewayServer/" rel="tag">GatewayServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-11/" rel="tag">c++11</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/entities/" rel="tag">entities</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ranklist/" rel="tag">ranklist</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/smart-pointer/" rel="tag">smart pointer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%93/" rel="tag">网络库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
+
+            </section>
+        </aside>
+    </div>
+</body>
+
+</html>

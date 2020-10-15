@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="keywords" content="hexo, autumn" />
+    <title>
+        E=MC²
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/favicon.ico" />
+     
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+
+    <script>
+        infiniteScroll()
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const [
+                mainTitle,
+                mobileMenu,
+                mobileMainTitle,
+                mobileMenuBtn,
+                ipadMenuBtn,
+                aside,
+                closeBtn,
+            ] = getEle(
+                '#main-title',
+                '.mobile-menu',
+                '.mobile-menu h3',
+                '.mobile-menu button',
+                '.ipad-menu',
+                'aside',
+                'aside .close',
+            )
+            const io = new IntersectionObserver(entries => {
+                if (entries[0].intersectionRatio <= 0) {
+                    mobileMainTitle.classList.remove('invisibile')
+                } else {
+                    mobileMainTitle.classList.add('invisibile')
+                }
+            })
+            io.observe(mainTitle)
+
+            clickToggleAside(mobileMenuBtn)
+            clickToggleAside(ipadMenuBtn)
+            clickToggleAside(closeBtn, false)
+
+            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
+            if (isMenuVisible) document.body.style.background = 'none'
+
+            function getEle(...args) {
+                return args.map(arg => document.querySelector(arg))
+            }
+
+            function clickToggleAside(btn, show = true) {
+                btn.addEventListener('click', function () {
+                    if (show) {
+                        aside.style.display = 'block'
+                    } else {
+                        aside.style.display = 'none'
+                    }
+                })
+            }
+        })
+    </script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism-duotone-dark.css" type="text/css"></head>
+
+<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+    <div class="container">
+        <header class="header">
+    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <h3 class="invisibile">
+            <a href="/" class="logo">
+                E=MC²
+            </a>
+        </h3>
+        <button class="menu">menu</button>
+    </nav>
+
+    <button class="ipad-menu menu">menu</button>
+
+    <h1 class="title" id="main-title">
+        <a href="/" class="logo">
+            E=MC²
+        </a>
+    </h1>
+    <h2 class="desc">
+        Coding changes the world.
+    </h2>
+
+    <div class="links">
+        <ul>
+            
+            <li>
+                <a href="mailto:948694243@qq.com">
+                    Email
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com">
+                    LinkedIn
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</header>
+        <main class="main">
+            
+<section class="posts">
+    
+        <article class="post">
+            
+                <h4 class="post-cat">
+                    <a href="/categories/redis/">
+                        redis
+                    </a>
+                </h4>
+                
+                    <h1 class="post-title">
+                        <a href="/redis/">
+                            redis
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            January 12, 2016
+                        </li>
+                        <li>
+                            mikzzz
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <p><font size=5 color=#0099ff ace="微软雅黑">1.认识Redis</font></p>
+<p>工作模型：单线程架构和IO多路复用来实现高性能的内存数据库服务<br>原因：a)单线程简化数据结构和算法的实现；b)避免线程切换和线程竞争的开销<br>应用场景：缓存/排行系统/统计器应用/社交网络/消息队列/热数据</p>
+<p><font size=5 color=#0099ff ace="微软雅黑">2.数据类型</font><br>2-1.字符串类型<br>命令相关：使用mget可以减少网络次数，提高开发效率（字符串不能超过512MB）<br>内部编码：根据当前值的类型和长度决定使用哪种编码</p>
+<p>int：8bytes长整型<br>embstr：小于等于39bytes的字符串<br>raw：大于39bytes的字符串<br>底层数据结构：数组<br>应用场景：缓存功能/计数/共享Seesion/限速<br>2-2.哈希类型<br>命令相关：键值本身又是一个键值对结构; set key field<br>内部编码：</p>
+                            <a href="/redis/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+        <article class="post">
+            
+                <h4 class="post-cat">
+                    <a href="/categories/smart-pointer/">
+                        smart pointer
+                    </a>
+                </h4>
+                
+                    <h1 class="post-title">
+                        <a href="/smart-pointer/">
+                            C++11标准下的智能指针
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            January 12, 2016
+                        </li>
+                        <li>
+                            mikzzz
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <p><font size=5 color=#0099ff ace="微软雅黑">智能指针：</font></p>
+<p>在某种程度上，对垃圾回收技术提供了支持，使得程序能够在内存管理方面更加安全。</p>
+<p>那么智能指针有哪几种呢？</p>
+<p>1.uniqued_ptr：不允许许多指针共享资源，所指向的空间只能由它所指向，它中存放的地址不允许复制到别的指针上，但可以用标准库中move()把它所指向的对象（地址）转移给别的指针，最后Uniqued_ptr就失效了；</p>
+                            <a href="/smart-pointer/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+</section>
+
+        </main>
+        <aside class="aside">
+            <div class="close"></div>
+            <section class="aside-section">
+                
+    <h1>Categories</h1>
+
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/GameServer/">GameServer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/GatewayServer/">GatewayServer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-11/">c++11</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/class/">class</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-structure/">data structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/entities/">entities</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/epoll/">epoll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libevent/">libevent</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ranklist/">ranklist</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/smart-pointer/">smart pointer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/sort/">sort</a></li></ul>
+
+            </section>
+            <section class="aside-section">
+                
+    <h1>Archives</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/">2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/">2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/">2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/">2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/">2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/">2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/">2009</a></li></ul>
+
+
+            </section>
+            <section class="aside-section tag">
+                
+    <h1>Tags</h1>
+
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GameServer/" rel="tag">GameServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GatewayServer/" rel="tag">GatewayServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-11/" rel="tag">c++11</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/entities/" rel="tag">entities</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ranklist/" rel="tag">ranklist</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/smart-pointer/" rel="tag">smart pointer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%93/" rel="tag">网络库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
+
+            </section>
+        </aside>
+    </div>
+</body>
+
+</html>

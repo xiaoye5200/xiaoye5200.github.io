@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="keywords" content="hexo, autumn" />
+    <title>
+        E=MC²
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/favicon.ico" />
+     
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+
+    <script>
+        infiniteScroll()
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const [
+                mainTitle,
+                mobileMenu,
+                mobileMainTitle,
+                mobileMenuBtn,
+                ipadMenuBtn,
+                aside,
+                closeBtn,
+            ] = getEle(
+                '#main-title',
+                '.mobile-menu',
+                '.mobile-menu h3',
+                '.mobile-menu button',
+                '.ipad-menu',
+                'aside',
+                'aside .close',
+            )
+            const io = new IntersectionObserver(entries => {
+                if (entries[0].intersectionRatio <= 0) {
+                    mobileMainTitle.classList.remove('invisibile')
+                } else {
+                    mobileMainTitle.classList.add('invisibile')
+                }
+            })
+            io.observe(mainTitle)
+
+            clickToggleAside(mobileMenuBtn)
+            clickToggleAside(ipadMenuBtn)
+            clickToggleAside(closeBtn, false)
+
+            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
+            if (isMenuVisible) document.body.style.background = 'none'
+
+            function getEle(...args) {
+                return args.map(arg => document.querySelector(arg))
+            }
+
+            function clickToggleAside(btn, show = true) {
+                btn.addEventListener('click', function () {
+                    if (show) {
+                        aside.style.display = 'block'
+                    } else {
+                        aside.style.display = 'none'
+                    }
+                })
+            }
+        })
+    </script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism-duotone-dark.css" type="text/css"></head>
+
+<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+    <div class="container">
+        <header class="header">
+    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <h3 class="invisibile">
+            <a href="/" class="logo">
+                E=MC²
+            </a>
+        </h3>
+        <button class="menu">menu</button>
+    </nav>
+
+    <button class="ipad-menu menu">menu</button>
+
+    <h1 class="title" id="main-title">
+        <a href="/" class="logo">
+            E=MC²
+        </a>
+    </h1>
+    <h2 class="desc">
+        Coding changes the world.
+    </h2>
+
+    <div class="links">
+        <ul>
+            
+            <li>
+                <a href="mailto:948694243@qq.com">
+                    Email
+                </a>
+            </li>
+            
+            <li>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com">
+                    LinkedIn
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</header>
+        <main class="main">
+            <article class="post">
+    
+    
+    <h4 class="post-cat">
+        <a href="/categories/GameServer/">
+            GameServer
+        </a>
+    </h4>
+    
+    
+    <h2 class="post-title">
+        游戏服务器入门
+    </h2>
+    <ul class="post-date">
+        <li>
+            2013-04-07
+        </li>
+        <li>
+            mikzzz
+        </li>
+    </ul>
+    <div class="post-content">
+        <p><font size=5 color=#0099ff ace="微软雅黑">一 专业基础</font><br>1.1 网络<br>1.1.1 理解TCP/IP协议<br>网络传输模型<br>滑动窗口技术<br>建立连接的三次握手与断开连接的四次握手<br>连接建立与断开过程中的各种状态<br>TCP/IP协议的传输效率<br>思考<br>1）请解释DOS攻击与DRDOS攻击的基本原理<br>2）一个100Byte数据包，精简到50Byte, 其传输效率提高了50%<br>3）TIMEWAIT状态怎么解释？<br>1.1.2 掌握常用的网络通信模型<br>Select<br>Epoll，边缘触发与平台出发点区别与应用<br>Select与Epoll的区别及应用<br>1.2 存储<br>计算机系统存储体系<a id="more"></a><br>程序运行时的内存结构<br>计算机文件系统，页表结构<br>内存池与对象池的实现原理，应用场景与区别<br>关系数据库MySQL的使用<br>共享内存<br>1.3 程序<br>对C/C++语言有较深的理解<br>深刻理解接口，封装与多态，并且有实践经验<br>深刻理解常用的数据结构：数组，链表，二叉树，哈希表<br>熟悉常用的算法及相关复杂度：冒泡排序，快速排序<br><font size=5 color=#0099ff ace="微软雅黑">二 游戏开发入门</font><br>2.1防御式编程<br>不要相信客户端数据，一定要检验。作为服务器端你无法确定你的客户端是谁，你也不能假定它是善意的，请做好自我保护。(这是判断一个服务器端程序员是否入门的基本标准)<br>务必对于函数的传人参数和返回值进行合法性判断，内部子系统，功能模块之间不要太过信任，要求低耦合，高内聚<br>插件式的模块设计，模块功能的健壮性应该是内建的，尽量减少模块间耦合<br>2.2 设计模式<br>道法自然。不要迷信，迷恋设计模式，更不要生搬硬套<br>简化，简化，再简化，用最简单的办法解决问题<br>借大宝一句话：设计本天成，妙手偶得之<br>2.3 网络模型<br>自造轮子: Select, Epoll， Epoll一定比Select高效吗？<br>开源框架: Libevent, libev, ACE<br>2.4 数据持久化<br>自定义文件存储，如《梦幻西游》<br>关系数据库: MySQL<br>NO-SQL数据库: MongoDB<br>选择存储系统要考虑到因素：稳定性，性能，可扩展性<br>2.5 内存管理<br>使用内存池和对象池，禁止运行期间动态分配内存<br>对于输入输出的指针参数，严格检查，宁滥勿缺<br>写内存保护。使用带内存保护的函数(strncpy, memcpy, snprintf, vsnprintf等)，严防数组下标越界<br>防止读内存溢出，确保字符串以’\0’结束<br>2.6 日志系统<br>简单高效，大量日志操作不应该影响程序性能<br>稳定，做到服务器崩溃是日志不丢失<br>完备，玩家关键操作一定要记日志，理想的情况是通过日志能重建任何时刻的玩家数据<br>开关，开发日志的要加级别开关控制<br>2.7 通信协议<br>采用PDL(Protocol Design Language)， 如Protobuf，可以同时生成前后端代码，减少前后端协议联调成本， 扩展性好<br>JSON，文本协议，简单，自解释，无联调成本，扩展性好，也很方便进行包过滤以及写日志<br>自定义二进制协议，精简，有高效的传输性能，完全可控，几乎无扩展性<br>2.8 全局唯一Key（GUID）<br>为合服做准备<br>方便追踪道具，装备流向<br>每个角色，装备，道具都应对应有全局唯一Key<br>2.9 多线程与同步<br>消息队列进行同步化处理<br>2.10 状态机<br>强化角色的状态<br>前置状态的检查校验<br>2.11 数据包操作<br>合并, 同一帧内的数据包进行合并，减少IO操作次数<br>单副本, 用一个包尽量只保存一份，减少内存复制次数<br>AOI同步中减少中间过程无用数据包<br>2.12 状态监控<br>随时监控服务器内部状态<br>内存池，对象池使用情况<br>帧处理时间<br>网络IO<br>包处理性能<br>各种业务逻辑的处理次数<br>2.13 包频率控制<br>基于每个玩家每条协议的包频率控制，瘫痪变速齿轮<br>2.14 开关控制<br>每个模块都有开关，可以紧急关闭任何出问题的功能模块<br>2.15 反外挂反作弊<br>包频率控制可以消灭变速齿轮<br>包id自增校验，可以消灭WPE<br>包校验码可以消灭包拦截篡改<br>图形识别吗，可以踢掉99%非人的操作<br>魔高一尺，道高一丈<br>2.16 热更新<br>核心配置逻辑的热更新，如防沉迷系统，包频率控制，开关控制等<br>代码基本热更新，如Erlang，Lua等<br>2.17 防刷<br>关键系统资源（如元宝，精力值，道具，装备等）的产出记日志<br>资源的产出和消耗尽量依赖两个或以上的独立条件的检测<br>严格检查各项操作的前置条件<br>校验参数合法性<br>2.18 防崩溃<br>系统底层与具体业务逻辑无关，可以用大量的机器人压力测试暴露各种bug，确保稳定<br>业务逻辑建议使用脚本<br>系统性的保证游戏不会崩溃<br>2.19 性能优化<br>IO操作异步化<br>IO操作合并缓写 （事务性的提交db操作，包合并，文件日志缓写）<br>Cache机制<br>减少竞态条件 (避免频繁进出切换，尽量减少锁定使用，多线程不一定由于单线程) 多线程不一定比单线程快<br>减少内存复制<br>自己测试，用数据说话，别猜<br>2.20 运营支持<br>接口支持：实时查询，控制指令，数据监控，客服处理等<br>实现考虑提供Http接口<br>2.21 容灾与故障预案<br>略<br><font size=5 color=#0099ff ace="微软雅黑">三 服务器端架构</font><br>3.1 什么是好的架构？<br>满足业务要求<br>能迅速的实现策划需求，响应需求变更<br>系统级的稳定性保障<br>简化开发。将复杂性控制在架构底层，降低对开发人员的技术要求，逻辑开发不依赖于开发人员本身强大的技术实力，提高开发效率<br>完善的运营支撑体系<br>3.2 架构实践的思考<br>简单，满足需求的架构就是好架构<br>设计性能，抓住重要的20%， 没必要从程序代码里面去抠性能<br>热更新是必须的<br>人难免会犯错，尽可能的用一套机制去保障逻辑的健壮性</p>
+
+    </div>
+</article>
+        </main>
+        <aside class="aside">
+            <div class="close"></div>
+            <section class="aside-section">
+                
+    <h1>Categories</h1>
+
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/GameServer/">GameServer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/GatewayServer/">GatewayServer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-11/">c++11</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/class/">class</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/data-structure/">data structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/entities/">entities</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/epoll/">epoll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libevent/">libevent</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ranklist/">ranklist</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/smart-pointer/">smart pointer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/sort/">sort</a></li></ul>
+
+            </section>
+            <section class="aside-section">
+                
+    <h1>Archives</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/">2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/">2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/">2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/">2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/">2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/">2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/">2009</a></li></ul>
+
+
+            </section>
+            <section class="aside-section tag">
+                
+    <h1>Tags</h1>
+
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GameServer/" rel="tag">GameServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GatewayServer/" rel="tag">GatewayServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-11/" rel="tag">c++11</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/entities/" rel="tag">entities</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ranklist/" rel="tag">ranklist</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/smart-pointer/" rel="tag">smart pointer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/" rel="tag">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%93/" rel="tag">网络库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li></ul>
+
+            </section>
+        </aside>
+    </div>
+</body>
+
+</html>
