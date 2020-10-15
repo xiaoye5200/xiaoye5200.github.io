@@ -444,6 +444,159 @@ a.push_back(5);</code></pre>
                     </div>
         </article>
         
+        <article class="post">
+            
+                <h4 class="post-cat">
+                    <a href="/categories/GatewayServer/">
+                        GatewayServer
+                    </a>
+                </h4>
+                
+                    <h1 class="post-title">
+                        <a href="/gatewayserver/">
+                            游戏网关服务器GatewayServer的作用
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            November 21, 2011
+                        </li>
+                        <li>
+                            mikzzz
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <p><font size=5 color=#0099ff ace="微软雅黑">GatewayServer</font><br>　　也称之为连接服务器，网络游戏的客户端一般是连接到这里，然后再由该连接服务器根据不同的需要，把游戏消息转发给其它相应的服务器（逻辑和地图服务器）。也因为它是客户端直接连接的对象，它同时也承担了验证客户身份的工作。</p>
+<p><font size=5 color=#0099ff ace="微软雅黑">游戏网关服务器GatewayServer的作用：</font><br>游戏网关服务器可以作为客户端与 game server 的隔离作用<br>消息解析</p>
+                            <a href="/gatewayserver/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+        <article class="post">
+            
+                <h4 class="post-cat">
+                    <a href="/categories/sort/">
+                        sort
+                    </a>
+                </h4>
+                
+                    <h1 class="post-title">
+                        <a href="/sort/">
+                            各个排序算法原理
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            September 21, 2010
+                        </li>
+                        <li>
+                            mikzzz
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <p><font size=5 color=#0099ff ace="微软雅黑">一、插入排序</font><br>　　每次将一个待排序的数据，跟前面已经有序的序列的数字一一比较找到自己合适的位置，插入到序列中，直到全部数据插入完成。</p>
+<p><font size=5 color=#0099ff ace="微软雅黑">二、希尔排序</font><br>先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的）分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。由于希尔排序是对相隔若干距离的数据进行直接插入排序，因此可以形象的称希尔排序为“跳着插”</p>
+                            <a href="/sort/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+        <article class="post">
+            
+                <h4 class="post-cat">
+                    <a href="/categories/data-structure/">
+                        data structure
+                    </a>
+                </h4>
+                
+                    <h1 class="post-title">
+                        <a href="/heaps-stacks/">
+                            堆和栈的区别
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            July 13, 2009
+                        </li>
+                        <li>
+                            mikzzz
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <p><font size=5 color=#0099ff ace="微软雅黑">堆和栈的区别</font><br>从管理方式上：栈是由编译器自动管理，无需我们手动控制；<br>对于堆，开辟和释放工作由程序员控制，所以有内存泄漏等情况的发生。<br>从申请大小上：栈是有高地址向低地址扩展的，是一块连续的内存区域，所以栈的栈顶地址或者大小 是一开始就分配好的。在使用过程中，比如递归调用层数过多，那么就有可能造成栈溢出，所以栈能获得的空间比较少；<br>堆是向高地址扩展的，是链表组织的方式，所以有可能是不连续的，他的大小只受限于有效的虚拟内存大小，所以堆能开辟的空间较大。<br>从碎片问题上：栈是没有碎片的情况，因为他有严格的出栈入栈，不会存在一个内存块从栈的中间位置弹出；<br>堆有碎片的情况，频繁的调用new/delete分配释放内存，必然会造成内存碎片。</p>
+                            <a href="/heaps-stacks/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+        <article class="post">
+            
+                <h4 class="post-cat">
+                    <a href="/categories/class/">
+                        class
+                    </a>
+                </h4>
+                
+                    <h1 class="post-title">
+                        <a href="/class/">
+                            实现一个不能被继承的类
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            July 12, 2009
+                        </li>
+                        <li>
+                            mikzzz
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <p><font size=5 color=#0099ff ace="微软雅黑">1、方法一 将其构造函数声明为私有的</font></p>
+<p>最直观的解决方法就是将其构造函数声明为私有的，这样就可以阻止子类构造对象了。但是这样的话，就无法构造本身的对象了，就无法利用了。<br>既然这样，我们又可以想定义一个静态方法来构造类和释放类。</p>
+<pre><code class="cpp">#include<iostream>
+using namespace std;
+class A
+{
+    public:
+       static A* Construct(int n)
+       {
+           A *pa = new A;
+           pa->num = n;
+           cout<<"num is:"<<pa->num<<endl;
+           return pa;
+       }
+       static void Destruct(A * pIntance)
+       {
+           delete pIntance;
+           pIntance = NULL;
+       }
+    
+    private:
+       A(){}
+       ~A(){}
+
+    public:
+       int num;
+};
+
+int main()
+{
+    A *f = A::Construct(9);
+    cout<<f->num<<endl;
+    A::Destruct(f);
+    return 0;
+}</code></pre>
+<p><font size=5 color=#0099ff ace="微软雅黑">2、方法二 利用友元不能被继承的特性，可以实现这样的类。</font></p>
+                            <a href="/class/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
 </section>
 
         </main>
